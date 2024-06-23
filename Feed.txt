@@ -1,0 +1,7 @@
+Question Id (1) from Client id(1)
+Question : what is the best java or kotlin?
+Answer : i think kotlin
+
+Question Id (2) from Client id(3)
+Question : what is your favourite language?
+Answer : kotlin
