@@ -82,21 +82,34 @@ while(true)
         {
             break
         }
-        if (number == 1) {
+        if (number == 1) 
+        {
             lo.ADD_QS_TO_ME()
-        } else if (number == 2) {
+        }
+        else if (number == 2)
+        {
             lo.ADD_QS_FROM_ME()
-        } else if (number == 3) {
+        } 
+        else if (number == 3)
+        {
             lo.ADD_ANSWER_QUESTION()
-        } else if (number == 4) {
+        }
+        else if (number == 4) {
             lo.DELETE_QUESTION()
-        } else if (number == 5) {
+        } else if (number == 5)
+        {
             lo.ASK_QUESTION()
-        } else if (number == 6) {
+        } 
+        else if (number == 6) 
+        {
             lo.LIST_OF_Clients()
-        } else if (number == 7) {
+        }
+        else if (number == 7)
+        {
             lo.FEED()
-        } else if (number == 8) {
+        } 
+        else if (number == 8)
+        {
             lo.LOGOUT()
         }
         else if(number>9||number<1)
@@ -104,8 +117,6 @@ while(true)
             println("This number is out of required range\nTry again with range 1:9 : ")
         }
     }
-
-
 }
         }
         else if (choice == 2)
@@ -117,8 +128,7 @@ while(true)
             println("This number is out of required range\nTry again with range 1:3 : ")
         }
     }
-
-    }
+ }
 data class Client(var Id: Int, var name: String, var password: String, var password_confirmation: String, var email: String)
 {
 
@@ -218,8 +228,7 @@ println("Confirm password : ")
 
 
      file.forEachLine{
-
-         if (email == it || password == it || password_conformation == it)
+        if (email == it || password == it || password_conformation == it)
          {
              counter++
          }
@@ -506,29 +515,35 @@ var Qs_toDelete:String= readln().toString()
             val reader = BufferedReader(FileReader(file))
             while (true) {
                 var idString = reader.readLine()
-                if (idString == null) {
+                if (idString == null)
+                {
                     break
                 }
                 var id = idString.toInt()
-                if (id == null) {
+                if (id == null)
+                {
                     break
                 }
                 var name = reader.readLine()
-                if (name == null) {
+                if (name == null) 
+                {
                     break
                 }
 
                 var email = reader.readLine()
-                if (email == null) {
+                if (email == null)
+                {
                     break
                 }
                 var password = reader.readLine()
-                if (password == null) {
+                if (password == null)
+                {
                     break
                 }
 
                 var password_confirmation = reader.readLine()
-                if (password_confirmation == null) {
+                if (password_confirmation == null)
+                {
                     break
                 }
 
