@@ -114,7 +114,7 @@ while(true)
         }
       else if(choice>3||choice<1)
         {
-            println("This number is out of required range\nTry again with range 1:2 : ")
+            println("This number is out of required range\nTry again with range 1:3 : ")
         }
     }
 
