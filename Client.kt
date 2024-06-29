@@ -82,41 +82,44 @@ while(true)
         {
             break
         }
-        if (number == 1) 
+        if (number == 1)
         {
             lo.ADD_QS_TO_ME()
-        }
-        else if (number == 2)
+        } else if (number == 2)
         {
             lo.ADD_QS_FROM_ME()
-        } 
+        }
         else if (number == 3)
         {
             lo.ADD_ANSWER_QUESTION()
         }
-        else if (number == 4) {
+        else if (number == 4)
+        {
             lo.DELETE_QUESTION()
-        } else if (number == 5)
+        }
+        else if (number == 5)
         {
             lo.ASK_QUESTION()
-        } 
-        else if (number == 6) 
+        }
+        else if (number == 6)
         {
             lo.LIST_OF_Clients()
         }
         else if (number == 7)
         {
             lo.FEED()
-        } 
+        }
         else if (number == 8)
         {
-            lo.LOGOUT()
+            lo.Delete_Client_Data()
         }
         else if(number>9||number<1)
         {
             println("This number is out of required range\nTry again with range 1:9 : ")
         }
     }
+
+
 }
         }
         else if (choice == 2)
@@ -128,7 +131,8 @@ while(true)
             println("This number is out of required range\nTry again with range 1:3 : ")
         }
     }
- }
+
+    }
 data class Client(var Id: Int, var name: String, var password: String, var password_confirmation: String, var email: String)
 {
 
@@ -228,7 +232,8 @@ println("Confirm password : ")
 
 
      file.forEachLine{
-        if (email == it || password == it || password_conformation == it)
+
+         if (email == it || password == it || password_conformation == it)
          {
              counter++
          }
@@ -265,8 +270,8 @@ fun Menu_of_login_operations()
             "   5:Ask question\n" +
             "   6:List System users\n" +
             "   7:Feed\n" +
-            "   8:Logout\n" +
-            "   9:exit\n"
+            "   8:Delete_Client\n" +
+            "   9:Logout\n"
          )
 }
 class Login_operations(val file:File,val _file:File,val __file:File,val file_:File)
@@ -427,7 +432,7 @@ println("Enter the  Sender Client id ")
 var id_client_toDelete :String= readln().toString()
 println("Enter the question id ")
 var id_Qs_toDelete:String= readln().toString()
-println("Enter the Question ")
+println("Enter the Question to delete ")
 var Qs_toDelete:String= readln().toString()
 
         var tempFile = File.createTempFile("temp", null)
@@ -515,35 +520,29 @@ var Qs_toDelete:String= readln().toString()
             val reader = BufferedReader(FileReader(file))
             while (true) {
                 var idString = reader.readLine()
-                if (idString == null)
-                {
+                if (idString == null) {
                     break
                 }
                 var id = idString.toInt()
-                if (id == null)
-                {
+                if (id == null) {
                     break
                 }
                 var name = reader.readLine()
-                if (name == null) 
-                {
+                if (name == null) {
                     break
                 }
 
                 var email = reader.readLine()
-                if (email == null)
-                {
+                if (email == null) {
                     break
                 }
                 var password = reader.readLine()
-                if (password == null)
-                {
+                if (password == null) {
                     break
                 }
 
                 var password_confirmation = reader.readLine()
-                if (password_confirmation == null)
-                {
+                if (password_confirmation == null) {
                     break
                 }
 
@@ -556,7 +555,7 @@ var Qs_toDelete:String= readln().toString()
                 println("Id: ${client.Id},    Name: ${client.name}")
             }
         }
-        fun LOGOUT() //this function to logout client in system
+        fun Delete_Client_Data() //this function to logout client in system
         {
             println("Enter your id ")
             var id_To_Delete = readLine().toString()
@@ -598,9 +597,10 @@ var Qs_toDelete:String= readln().toString()
             reader.close()
             file.delete()
             tempFile.renameTo(file)
-            println("Successful logout process")
+            println("Successful Dletation process")
 
         }
+
 };
 /* the content of clients.txt file
 1
