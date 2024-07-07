@@ -3,55 +3,30 @@ import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 import java.io.BufferedWriter
-fun main() {
+fun main()
+{
     val fileName = "Clients.txt"
     val file = File(fileName)
     val isCreated = file.createNewFile()
-    if (!isCreated)
-    {
-        println("File already exists or cannot be created.")
-    } else
-    {
-        println("File created successfully.")
-    }
 
     val file_Name="Quetions.txt"
     val _file=File(file_Name)
     val is_Created=_file.createNewFile()
-    if(!is_Created)
-    {
-        println("File already exists or cannot be created.")
-    }
-    else
-    {
-        println("File created successfully.")
-    }
 
     val file__Name="Answers.txt"
     val __file=File(file__Name)
     val is__Created=__file.createNewFile()
-    if(!is__Created)
-    {
-        println("File already exists or cannot be created.")
-    }
-    else
-    {
-        println("File created successfully.")
-    }
 
     val File_Name="Feed.txt"
     val file_=File(File_Name)
     val iS_Created=file_.createNewFile()
-    if(!iS_Created)
-    {
-        println("File already exists or cannot be created.")
-    }
-    else
-    {
-        println("File created successfully.")
-    }
+
+    val File_Name_="Question_From_Me.txt"
+    val file__=File(File_Name_)
+    val IS_Created=file__.createNewFile()
+
     var s=Sign_Up(file)
-    var lo=Login_operations( file,_file,__file, file_)
+    var lo=Login_operations( file,_file,__file, file_,file__)
   var  choice:Int
   while(true)
   {
@@ -77,8 +52,18 @@ while(true)
 
 //        Menu_of_login_operations()
         println("Enter the number of login operation : ")
-        var number: Int = readln().toInt()
-        if (number == 9)
+        var number: Int = readln().toInt()/*
+         "   1:Add question to me\n" +
+            "   2:print Questions to me\n" +
+            "   3:add Questions from me\n" +
+            "   4:print Questions from me\n" +
+            "   5:answer question\n" +
+            "   6:delete question\n" +
+            "   7:List System users\n" +
+            "   8:Feed\n" +
+            "   9:Delete_Client\n" +
+            "   10:Logout\n"*/
+        if (number == 10)
         {
             break
         }
@@ -87,33 +72,38 @@ while(true)
             lo.ADD_QS_TO_ME()
         } else if (number == 2)
         {
-            lo.ADD_QS_FROM_ME()
+            lo.print_Questions_ToMe()
         }
         else if (number == 3)
         {
-            lo.ADD_ANSWER_QUESTION()
+            lo.ADD_QS_FROM_ME()
+
         }
         else if (number == 4)
         {
-            lo.DELETE_QUESTION()
+         lo.Print_Question_FromMe()
         }
         else if (number == 5)
         {
-            lo.ASK_QUESTION()
+            lo.ADD_ANSWER_QUESTION()
         }
         else if (number == 6)
         {
-            lo.LIST_OF_Clients()
+            lo.DELETE_QUESTION()
         }
         else if (number == 7)
         {
-            lo.FEED()
+            lo.LIST_OF_Clients()
         }
         else if (number == 8)
         {
+            lo.FEED()
+        }
+        else if(number==9)
+        {
             lo.Delete_Client_Data()
         }
-        else if(number>9||number<1)
+        else if(number>10||number<1)
         {
             println("This number is out of required range\nTry again with range 1:9 : ")
         }
@@ -131,7 +121,6 @@ while(true)
             println("This number is out of required range\nTry again with range 1:3 : ")
         }
     }
-
     }
 data class Client(var Id: Int, var name: String, var password: String, var password_confirmation: String, var email: String)
 {
@@ -208,8 +197,6 @@ class Sign_Up(val file: File)
 
     }
 }
-
-
 class Log_In(val file:File)
 {
     var counter: Int = 0
@@ -264,32 +251,40 @@ fun Menu_of_login_operations()
 {
    println("Menu : ")
     print(  "   1:Add question to me\n" +
-            "   2:Add question from me\n" +
-            "   3:answer question\n" +
-            "   4:delete question\n" +
-            "   5:Ask question\n" +
-            "   6:List System users\n" +
-            "   7:Feed\n" +
-            "   8:Delete_Client\n" +
-            "   9:Logout\n"
+            "   2:print Questions to me\n" +
+            "   3:add Questions from me\n" +
+            "   4:print Questions from me\n" +
+            "   5:answer question\n" +
+            "   6:delete question\n" +
+            "   7:List System Clients\n" +
+            "   8:Feed\n" +
+            "   9:Delete client data\n" +
+            "   10:Logout\n"
          )
 }
-class Login_operations(val file:File,val _file:File,val __file:File,val file_:File)
+class Login_operations(val file:File,val _file:File,val __file:File,val file_:File,val file__:File)
 {
-   private var Questions_to_me= arrayListOf<Question_to_me>()
+    private var Questions_to_me= arrayListOf<Question_to_me>()
     private var Questions_from_me = arrayListOf<Question_from_me>()
     private var map = hashMapOf<Question, String>()
     private var get_file_data = arrayListOf<Question>()
     private var ASk_Question= arrayListOf<Question>()
-    fun ADD_QS_TO_ME()//this function print question to me in file and console
-    {
+         fun ADD_QS_TO_ME()//this function print question to me in file and console
+         {
         var cn: Int = 0;
-        println("Enter your question to me : ")
-        var Question_String: String = readln().toString()
-        println(" Enter the Sender Client Id : ")
+
+        println(" Enter the Sender Client Id or -1 to cancel : ")
         var person_id = readln().toInt()
+        if(person_id==-1)
+        {
+            return
+        }
+        else
+        {
         println("Enter your question id : ")
         var Question_id: Int = readln().toInt()
+        println("Enter your question to me : ")
+        var Question_String: String = readln().toString()
         file.forEachLine {
             if (person_id.toString() == it)
             {
@@ -304,7 +299,7 @@ class Login_operations(val file:File,val _file:File,val __file:File,val file_:Fi
             Questions_to_me.add(new_qs)
 
             Questions_to_me.forEach { Question_to_me ->
-                println("The question ID ( ${Question_to_me.Id}) from Client ID (${Question_to_me.Id_from_user})      The Question : ${Question_to_me.qs}")
+                //println("The question ID ( ${Question_to_me.Id}) from Client ID (${Question_to_me.Id_from_user})      The Question : ${Question_to_me.qs}")
                 _file.appendText("${Question_to_me.Id_from_user}\n")
                 _file.appendText("${Question_to_me.Id}\n")
                 _file.appendText("${Question_to_me.qs}?\n")
@@ -314,292 +309,324 @@ class Login_operations(val file:File,val _file:File,val __file:File,val file_:Fi
         {
             println("This Client is not found and can't ask any question ")
         }
-    }
-    fun ADD_QS_FROM_ME()//this function print question of me in file and console
-    {
-        var cn: Int = 0
-        println("Enter the Sender Client Id : ")
-        var id: Int = readln().toInt()
-        println("Enter question Id : ")
-        var id_Qs = readln().toInt()
-        println("Enter the Question : ")
-        var Qs = readln().toString()
-        file.forEachLine {
-            if (id.toString() == it)
-            {
-                cn++
-            }
-        }
-        if (cn != 0) {
-            var New_qs = Question_from_me(id, id_Qs, Qs)
-            Questions_from_me.add(New_qs)
-            Questions_from_me.forEach { Question_from_me ->
-                println("The question ID (${Question_from_me.Id}) to the Client ID (${Question_from_me.Id_to_user})      The Question : ${Question_from_me.qs}")
-                _file.appendText("${Question_from_me.Id_to_user}\n")
-                _file.appendText("${Question_from_me.Id}\n")
-                _file.appendText("${Question_from_me.qs}?\n")
-            }
-        }
-        else
-        {
-            println("This Client is not found and can't ask any question ")
-        }
-
-    }
-    fun ADD_ANSWER_QUESTION() //this function check all questions and answer the required question in system
-    {
-        println("Enter the question id or -1 to cancel ")
-        var id = readln().toInt()
-        val reader = BufferedReader(FileReader(_file))
-if(id==-1)
-{
-    return
-}
-      else
-        {
-
-    while (true)
-    {
-        val idString = reader.readLine()
-        if (idString == null)
-        {
-            break
-        }
-        val id_user = idString.toInt()
-        if (id_user == null)
-        {
-            break
-        }
-        val id_String=reader.readLine()
-        val idQs=id_String.toInt()
-        if(idQs==null)
-        {
-            break
-        }
-        val qs=reader.readLine()
-        if(qs==null)
-        {
-            break
-        }
-        val data_qs = Question(id_user, idQs, qs)
-        get_file_data.add(data_qs)
-    }
-    var flag:Boolean=false
-    var answer: String
-    get_file_data.forEach { data_qs ->
-        if (id == data_qs.id_qs)
-        {
-            flag =true
-            println(
-                "Question Id (${data_qs.id_qs}) from Client id(${data_qs.id_User})\n" +
-                        "Question : ${data_qs.qs}\n"
-            )
-            print("Enter answer: ")
-            answer = readln().toString()
-            map.put(data_qs, "${answer}")
-            __file.appendText("${answer}\n")
-
-
-        }
-
-    }
-    if(flag==false)
-    {
-        println("Invalid Question id")
-    }
-    for (i in map)
-    {
-        file_.appendText(
-            "Question Id (${i.key.id_qs}) from Client id(${i.key.id_User})\n" +
-                    "Question : ${i.key.qs}\n" +
-                    "Answer : ${i.value}\n"
-        )
-    }
-    reader.close()
-}
-    }
-
-    fun FEED()//this function print all answered questions with their answers in system
-    {
-file_.forEachLine {
-    println(it)
-   }
-    }
-    fun DELETE_QUESTION()//to delete question in system
-    {
-        var cn:Int=0
-println("Enter the  Sender Client id ")
-var id_client_toDelete :String= readln().toString()
-println("Enter the question id ")
-var id_Qs_toDelete:String= readln().toString()
-println("Enter the Question to delete ")
-var Qs_toDelete:String= readln().toString()
-
-        var tempFile = File.createTempFile("temp", null)
-        var reader = BufferedReader(FileReader(_file))
-        var writer = BufferedWriter(FileWriter(tempFile))
-
-            _file.forEachLine {
-                if(id_client_toDelete.toString()==it||id_Qs_toDelete.toString()==it||Qs_toDelete==it)
-                {
-                    cn++
-                }
-            }
-
-
-            if(cn!=0) {
-                var curr: String?
-
-                while (reader.readLine().also { curr = it } != null) {
-                    var idClient = curr
-                    var idQs = reader.readLine()
-                    var QS = reader.readLine()
-                    if (idClient != id_client_toDelete || idQs != id_Qs_toDelete || QS != Qs_toDelete) {
-                        writer.write(idClient)
-                        writer.newLine()
-                        writer.write(idQs)
-                        writer.newLine()
-                        writer.write(QS)
-                        writer.newLine()
-                    }
-                }
-                writer.close()
-                reader.close()
-                _file.delete()
-                tempFile.renameTo(_file)
-            }
-            else
-            {
-                println("this question don't exist ")
-            }
-    }
-    fun ASK_QUESTION()// this function to ask some question and add it in file system
-    {
-      println("Enter the question id or -1 to cancel")
-        var Id: Int = readln().toInt()
-        if(Id==-1)
-        {
-            return
-        }
-        else
-        {
-            println("Enter your Question Id")
-            var Id_Qs: Int = readln().toInt()
-            println("Enter Your Question")
-            var Qs: String = readln().toString()
-            var cn: Int = 0
-            file.forEachLine {
-                if (Id.toString() == it) {
-                    cn++
-                }
-            }
-            if (cn == 1)
-            {
-                var New_Qs = Question(Id, Id_Qs, Qs)
-                ASk_Question.add(New_Qs)
-                ASk_Question.forEach { Question ->
-                    println(
-                        "Question Id (${Question.id_qs}) from Client id(${Question.id_User})\n" +
-                                "Question : ${Question.qs}\n"
-                    )
-                    _file.appendText("${Question.id_User}\n")
-                    _file.appendText("${Question.id_qs}\n")
-                    _file.appendText("${Question.qs}?\n")
-
-                }
-            }
-            else if (cn == 0)
-            {
-                println("invalid Id")
-            }
         }
     }
-        fun LIST_OF_Clients()//this function to print all clients or users that store in system with id and name
-        {
-            var list_of_users = arrayListOf<Client>()
-            val reader = BufferedReader(FileReader(file))
-            while (true) {
-                var idString = reader.readLine()
-                if (idString == null) {
-                    break
-                }
-                var id = idString.toInt()
-                if (id == null) {
-                    break
-                }
-                var name = reader.readLine()
-                if (name == null) {
-                    break
-                }
+         fun print_Questions_ToMe()
+         {
+         val reader = BufferedReader(FileReader(_file))
+         while (true) {
+             val idString = reader.readLine()
+             if (idString == null) {
+                 break
+             }
+             val id_user = idString.toInt()
+             if (id_user == null) {
+                 break
+             }
+             val id_String = reader.readLine()
+             val idQs = id_String.toInt()
+             if (idQs == null) {
+                 break
+             }
+             val qs = reader.readLine()
+             if (qs == null) {
+                 break
+             }
+             val data_qs = Question_to_me(id_user, idQs, qs)
+             Questions_to_me.add(data_qs)
+         }
+        Questions_to_me.forEach { data_qs ->
+             println("The question ID ( ${data_qs.Id}) from Client ID (${data_qs.Id_from_user})      The Question : ${data_qs.qs}")
 
-                var email = reader.readLine()
-                if (email == null) {
-                    break
-                }
-                var password = reader.readLine()
-                if (password == null) {
-                    break
-                }
+         }
+     }
+         fun ADD_QS_FROM_ME()//this function print question of me in file and console
+         {
+             var cn: Int = 0
+             println("Enter the Reciever Client Id or -1 to cancel : ")
+             var id: Int = readln().toInt()
+             if (id == -1) {
+                 return
+             } else {
+                 println("Enter question Id : ")
+                 var id_Qs = readln().toInt()
+                 println("Enter the Question : ")
+                 var Qs = readln().toString()
+                 file.forEachLine {
+                     if (id.toString() == it) {
+                         cn++
+                     }
+                 }
+                 if (cn != 0) {
+                     var New_qs = Question_from_me(id, id_Qs, Qs)
+                     Questions_from_me.add(New_qs)
+                     Questions_from_me.forEach { Question_from_me ->
+                         // println("The question ID (${Question_from_me.Id}) to the Client ID (${Question_from_me.Id_to_user})      The Question : ${Question_from_me.qs}")
+                         file__.appendText("${Question_from_me.Id_to_user}\n")
+                         file__.appendText("${Question_from_me.Id}\n")
+                         file__.appendText("${Question_from_me.qs}?\n")
+                     }
+                 } else {
+                     println("This Client is not found and can't ask any question ")
+                 }
+             }
+         }
+         fun Print_Question_FromMe()
+         {
+             val reader = BufferedReader(FileReader(file__))
+             while (true) {
+                 val idString = reader.readLine()
+                 if (idString == null) {
+                     break
+                 }
+                 val id_user = idString.toInt()
+                 if (id_user == null) {
+                     break
+                 }
+                 val id_String = reader.readLine()
+                 val idQs = id_String.toInt()
+                 if (idQs == null) {
+                     break
+                 }
+                 val qs = reader.readLine()
+                 if (qs == null) {
+                     break
+                 }
+                 val data_qs = Question_from_me(id_user, idQs, qs)
+                 Questions_from_me.add(data_qs)
+             }
+            Questions_from_me.forEach { data_qs ->
+                 println("The question ID ( ${data_qs.Id}) To Client ID (${data_qs.Id_to_user})      The Question : ${data_qs.qs}")
 
-                var password_confirmation = reader.readLine()
-                if (password_confirmation == null) {
-                    break
-                }
+             }
+         }
+         fun ADD_ANSWER_QUESTION() //this function check all questions and answer the required question in system
+         {
+             println("Enter the question id or -1 to cancel ")
+             var id = readln().toInt()
+             val reader = BufferedReader(FileReader(_file))
+             val reader1 = BufferedReader(FileReader(file__))
+             if (id == -1)
+             {
+                 return
+             }
+             else
+             {
+                 while (true) {
+                     val idString = reader.readLine()
+                     if (idString == null) {
+                         break
+                     }
+                     val id_user = idString.toInt()
+                     if (id_user == null) {
+                         break
+                     }
+                     val id_String = reader.readLine()
+                     val idQs = id_String.toInt()
+                     if (idQs == null) {
+                         break
+                     }
+                     val qs = reader.readLine()
+                     if (qs == null) {
+                         break
+                     }
+                     val data_qs = Question(id_user, idQs, qs)
+                     get_file_data.add(data_qs)
+                 }
+                 while (true)
+                 {
+                     val idString = reader1.readLine()
+                     if (idString == null) {
+                         break
+                     }
+                     val id_user = idString.toInt()
+                     if (id_user == null) {
+                         break
+                     }
+                     val id_String = reader1.readLine()
+                     val idQs = id_String.toInt()
+                     if (idQs == null) {
+                         break
+                     }
+                     val qs = reader1.readLine()
+                     if (qs == null) {
+                         break
+                     }
+                     val data_qs = Question(id_user, idQs, qs)
+                     get_file_data.add(data_qs)
+                 }
+                 var flag: Boolean = false
+                 var answer: String?
+                 get_file_data.forEach { data_qs ->
+                     if (id == data_qs.id_qs) {
+                         flag = true
+                         println(
+                             "Question Id (${data_qs.id_qs}) from Client id(${data_qs.id_User})\n" +
+                                     "Question : ${data_qs.qs}\n"
+                         )
+                         print("Enter answer: ")
+                         answer = readlnOrNull()
 
 
-                var client = Client(id, name, password, password_confirmation, email)
-                list_of_users.add(client)
-            }
-            reader.close()
-            list_of_users.forEach { client ->
-                println("Id: ${client.Id},    Name: ${client.name}")
-            }
-        }
-        fun Delete_Client_Data() //this function to logout client in system
-        {
-            println("Enter your id ")
-            var id_To_Delete = readLine().toString()
-            println("Enter your name")
-            var name_To_Delete = readLine().toString()
-            println("Enter your email")
-            var email_To_Delete = readLine().toString()
-            println("Enter your password")
-            var password_To_Delete = readLine().toString()
-            println("Enter your password_confirmation")
-            var password_Confirmation_To_Delete = readLine().toString()
+                             map.put(data_qs, "${answer}")
+                             __file.appendText("${answer}\n")
 
-            var tempFile = File.createTempFile("temp", null)
-            var reader = BufferedReader(FileReader(file))
-            var writer = BufferedWriter(FileWriter(tempFile))
+                     }
+                 }
+                 if (flag == false) {
+                     println("Invalid Question id")
+                 }
 
-            var curr: String?
+                 for (i in map)
+                 {
 
-            while (reader.readLine().also { curr = it } != null)
-            {
-                var id = curr
-                var name = reader.readLine()
-                var email = reader.readLine()
-                var password = reader.readLine()
-                var passwordConfirmation = reader.readLine()
 
-                if (id != id_To_Delete || name != name_To_Delete || email != email_To_Delete ||
-                    password != password_To_Delete || passwordConfirmation != password_Confirmation_To_Delete
-                )
-                {
-                    writer.write("$id\n")
-                    writer.write("$name\n")
-                    writer.write("$email\n")
-                    writer.write("$password\n")
-                    writer.write("$passwordConfirmation\n")
-                }
-            }
-            writer.close()
-            reader.close()
-            file.delete()
-            tempFile.renameTo(file)
-            println("Successful Dletation process")
+    file_.appendText(
+        "Question Id (${i.key.id_qs}) from Client id(${i.key.id_User})\n" +
+                "Question : ${i.key.qs}\n" +
+                "Answer : ${i.value}\n"
+    )
 
-        }
+
+                 }
+                 reader.close()
+             }
+         }
+         fun FEED()//this function print all answered questions with their answers in system
+         {
+             file_.forEachLine {
+                 println(it)
+             }
+         }
+         fun DELETE_QUESTION()//to delete question in system
+         {
+             var cn: Int = 0
+             println("Enter the  Sender Client id ")
+             var id_client_toDelete: String = readln().toString()
+             println("Enter the question id ")
+             var id_Qs_toDelete: String = readln().toString()
+             println("Enter the Question to delete ")
+             var Qs_toDelete: String = readln().toString()
+
+             var tempFile = File.createTempFile("temp", null)
+             var reader = BufferedReader(FileReader(_file))
+             var writer = BufferedWriter(FileWriter(tempFile))
+
+             _file.forEachLine {
+                 if (id_client_toDelete.toString() == it || id_Qs_toDelete.toString() == it || Qs_toDelete == it) {
+                     cn++
+                 }
+             }
+
+
+             if (cn != 0) {
+                 var curr: String?
+
+                 while (reader.readLine().also { curr = it } != null) {
+                     var idClient = curr
+                     var idQs = reader.readLine()
+                     var QS = reader.readLine()
+                     if (idClient != id_client_toDelete || idQs != id_Qs_toDelete || QS != Qs_toDelete) {
+                         writer.write(idClient)
+                         writer.newLine()
+                         writer.write(idQs)
+                         writer.newLine()
+                         writer.write(QS)
+                         writer.newLine()
+                     }
+                 }
+                 writer.close()
+                 reader.close()
+                 _file.delete()
+                 tempFile.renameTo(_file)
+             } else {
+                 println("this question don't exist ")
+             }
+         }
+         fun LIST_OF_Clients()//this function to print all clients or users that store in system with id and name
+         {
+             var list_of_users = arrayListOf<Client>()
+             val reader = BufferedReader(FileReader(file))
+             while (true) {
+                 var idString = reader.readLine()
+                 if (idString == null) {
+                     break
+                 }
+                 var id = idString.toInt()
+                 if (id == null) {
+                     break
+                 }
+                 var name = reader.readLine()
+                 if (name == null) {
+                     break
+                 }
+
+                 var email = reader.readLine()
+                 if (email == null) {
+                     break
+                 }
+                 var password = reader.readLine()
+                 if (password == null) {
+                     break
+                 }
+
+                 var password_confirmation = reader.readLine()
+                 if (password_confirmation == null) {
+                     break
+                 }
+
+
+                 var client = Client(id, name, password, password_confirmation, email)
+                 list_of_users.add(client)
+             }
+             reader.close()
+             list_of_users.forEach { client ->
+                 println("Id: ${client.Id},    Name: ${client.name}")
+             }
+         }
+         fun Delete_Client_Data() //this function to delete data client in system
+         {
+             println("Enter your id ")
+             var id_To_Delete = readLine().toString()
+             println("Enter your name")
+             var name_To_Delete = readLine().toString()
+             println("Enter your email")
+             var email_To_Delete = readLine().toString()
+             println("Enter your password")
+             var password_To_Delete = readLine().toString()
+             println("Enter your password_confirmation")
+             var password_Confirmation_To_Delete = readLine().toString()
+
+             var tempFile = File.createTempFile("temp", null)
+             var reader = BufferedReader(FileReader(file))
+             var writer = BufferedWriter(FileWriter(tempFile))
+
+             var curr: String?
+
+             while (reader.readLine().also { curr = it } != null) {
+                 var id = curr
+                 var name = reader.readLine()
+                 var email = reader.readLine()
+                 var password = reader.readLine()
+                 var passwordConfirmation = reader.readLine()
+
+                 if (id != id_To_Delete || name != name_To_Delete || email != email_To_Delete ||
+                     password != password_To_Delete || passwordConfirmation != password_Confirmation_To_Delete
+                 ) {
+                     writer.write("$id\n")
+                     writer.write("$name\n")
+                     writer.write("$email\n")
+                     writer.write("$password\n")
+                     writer.write("$passwordConfirmation\n")
+                 }
+             }
+             writer.close()
+             reader.close()
+             file.delete()
+             tempFile.renameTo(file)
+             println("Successful Dletation process")
+
+         }
 
 };
 /* the content of clients.txt file
