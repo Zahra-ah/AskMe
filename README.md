@@ -8,9 +8,10 @@
 - Show The Questions That Recevied to The Client or The User.
 - Show The Questions That Asked by The Client or The User.
 - List All Clients Or Users in The System.
-- Ask Question.
+- Ask Question From me Or To Me.
 - Delete Question.
 - Add Answer To Question.
+- Delete Data of Clients.
 - Feed or Show All Answered Questions in The System.
-- Logout.
+- Logout To End the Login Session.
 # If You Can Give Me Your Notes And Your Feedback Don't Hesitate to Enhance My Project.
